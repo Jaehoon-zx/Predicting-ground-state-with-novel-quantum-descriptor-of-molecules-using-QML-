@@ -99,7 +99,8 @@ def AtomLoader(etta,sampler=None,idx=None,numb=1,weigthed=False,cutoff_radius=5,
             descriptor=Cal_descriptor(cord=sym_bloch_cord,distance_matrix=distance_martix,etta=etta,weigthed=weigthed,atomic_num=atomic_num,cutoff_radius=cutoff_radius,halve=halve)
             atomloader[str(i)]={
                                 'ground_energy' : ground_energy,
-                                'descriptor' : descriptor
+                                'descriptor' : descriptor,
+                                'atomic_number': qm9[x]['n_atoms']
                                     }
         return atomloader
     if sampler=='random':
@@ -110,7 +111,8 @@ def AtomLoader(etta,sampler=None,idx=None,numb=1,weigthed=False,cutoff_radius=5,
             descriptor=Cal_descriptor(cord=sym_bloch_cord,distance_matrix=distance_martix,etta=etta,weigthed=weigthed,atomic_num=atomic_num,cutoff_radius=cutoff_radius,halve=halve)
             atomloader[str(i)]={
                                 'ground_energy' : ground_energy,
-                                'descriptor' : descriptor
+                                'descriptor' : descriptor,
+                                'atomic_number': qm9[x]['n_atoms']
                                     }
         return atomloader
     
