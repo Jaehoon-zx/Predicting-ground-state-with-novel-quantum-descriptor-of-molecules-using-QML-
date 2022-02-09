@@ -97,7 +97,7 @@ def AtomLoader(etta,sampler=None,idx=None,numb=1,weigthed=False,cutoff_radius=5,
         for i,x in enumerate(idx):
             sym_bloch_cord, distance_martix, atomic_num, ground_energy=Set_center(qm9[x])
             descriptor=Cal_descriptor(cord=sym_bloch_cord,distance_matrix=distance_martix,etta=etta,weigthed=weigthed,atomic_num=atomic_num,cutoff_radius=cutoff_radius,halve=halve)
-            atomloader[str(i)]={
+            atomloader[x]={
                                 'ground_energy' : ground_energy,
                                 'descriptor' : descriptor,
                                 'atomic_number': qm9[x]['n_atoms']
@@ -109,7 +109,7 @@ def AtomLoader(etta,sampler=None,idx=None,numb=1,weigthed=False,cutoff_radius=5,
         for i,x in enumerate(idx):
             sym_bloch_cord, distance_martix, atomic_num, ground_energy=Set_center(qm9[x])
             descriptor=Cal_descriptor(cord=sym_bloch_cord,distance_matrix=distance_martix,etta=etta,weigthed=weigthed,atomic_num=atomic_num,cutoff_radius=cutoff_radius,halve=halve)
-            atomloader[str(i)]={
+            atomloader[x]={
                                 'ground_energy' : ground_energy,
                                 'descriptor' : descriptor,
                                 'atomic_number': qm9[x]['n_atoms']
