@@ -27,7 +27,7 @@ class QuantumCircuit:
     with the quantum circuit 
     """
     
-    def __init__(self, n_qubits, depth, backend, shots):
+    def __init__(self, n_qubits, depth, backend):
 
         self._circuit = qiskit.QuantumCircuit(n_qubits)
         self.n_qubits=n_qubits
@@ -45,7 +45,6 @@ class QuantumCircuit:
         self._circuit.barrier()
 
         self.backend = backend
-        self.shots = shots
     
     def run(self, parameters, idx):
         list_eta = parameters[0:self.n_qubits]
@@ -120,11 +119,27 @@ class HybridFunction(Function):
 class Hybrid(nn.Module):
     """ Hybrid quantum - classical layer definition """
     
-    def __init__(self, n_qubits, depth, backend, shots, shift):
+    def __init__(self, n_qubits, depth, backend, shift):
         super(Hybrid, self).__init__()
-        self.quantum_circuit = QuantumCircuit(n_qubits, depth, backend, shots)
+        self.quantum_circuit = QuantumCircuit(n_qubits, depth, backend)
         self.shift = shift
         
         
     def forward(self, input,idx):
         return HybridFunction.apply(input, self.quantum_circuit, self.shift,idx)
+    
+
+
+class Net(nn.Module):
+    def __init__(self,n_qubits, depth):
+        super(Net, self).__init__()
+        self.linear=nn.Linear(1,n_qubits*(2*depth+3))
+        self.hybrid=Hybrid(n_qubits,depth,backend=Aer.get_backend('aer_simulator'),shift=np.pi / 2)
+        
+    def forward(self,x,idx):
+        x=self.linear(1)
+        x=Hybrid(x,idx)
+        
+
+model=Net(6,2)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
